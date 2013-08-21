@@ -113,7 +113,7 @@ class Converter
       when 'glyphicons.less'
         file = replace_rules(file, '@font-face') { |rule|
           rule = replace_all rule, /(\$icon-font-\w+)/, '#{\1}'
-          replace_all rule, /url\(/, '#{$twbs-font-url-helper}('
+          replace_all rule, /url\(/, 'call($twbs-font-url-helper,'
         }
       end
 

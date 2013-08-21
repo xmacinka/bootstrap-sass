@@ -10,11 +10,11 @@
 // Import the fonts
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: #{$twbs-font-url-helper}('#{$icon-font-path}#{$icon-font-name}.eot');
-  src: #{$twbs-font-url-helper}('#{$icon-font-path}#{$icon-font-name}.eot?#iefix') format('embedded-opentype'),
-       #{$twbs-font-url-helper}('#{$icon-font-path}#{$icon-font-name}.woff') format('woff'),
-       #{$twbs-font-url-helper}('#{$icon-font-path}#{$icon-font-name}.ttf') format('truetype'),
-       #{$twbs-font-url-helper}('#{$icon-font-path}#{$icon-font-name}.svg#glyphicons-halflingsregular') format('svg');
+  src: call($twbs-font-url-helper,'#{$icon-font-path}#{$icon-font-name}.eot');
+  src: call($twbs-font-url-helper,'#{$icon-font-path}#{$icon-font-name}.eot?#iefix') format('embedded-opentype'),
+       call($twbs-font-url-helper,'#{$icon-font-path}#{$icon-font-name}.woff') format('woff'),
+       call($twbs-font-url-helper,'#{$icon-font-path}#{$icon-font-name}.ttf') format('truetype'),
+       call($twbs-font-url-helper,'#{$icon-font-path}#{$icon-font-name}.svg#glyphicons-halflingsregular') format('svg');
 }
 
 // Catchall baseclass
