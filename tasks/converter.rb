@@ -92,6 +92,7 @@ class Converter
       when 'variables.less'
         file = insert_default_vars(file)
         file = replace_all file, /(\$icon-font-path:).*(!default)/, '\1 "bootstrap/" \2'
+        file = append_text file, "// [converter] injected var\n$twbs-font-url-helper: font-url !default;"
       when 'close.less'
         # extract .close { button& {...} } rule
         file = extract_nested_rule file, 'button&'
@@ -112,7 +113,7 @@ class Converter
       when 'glyphicons.less'
         file = replace_rules(file, '@font-face') { |rule|
           rule = replace_all rule, /(\$icon-font-\w+)/, '#{\1}'
-          replace_all rule, /url\(/, 'font-url('
+          replace_all rule, /url\(/, '#{$twbs-font-url-helper}('
         }
       end
 
@@ -352,11 +353,18 @@ class Converter
               %Q(@import "#{target_path}\\1";)
   end
 
+  # logged gsub that raises when there is no match
   def replace_all(file, regex, replacement = nil, &block)
     log_transform regex, replacement
     new_file = file.gsub(regex, replacement, &block)
     raise "replace_all #{regex}, #{replacement} NO MATCH" if file == new_file
     new_file
+  end
+
+  # logged +=
+  def append_text(file, text)
+    log_transform text
+    "#{file}\n#{text}"
   end
 
   # @mixin a() { tr& { color:white } }
